@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^5.0.0",
+    "bootstrap-sass": "^3.3.0"
+  },
+  "dependencies": {
+    "medium-editor": "^5.22.1",
+    "vue": "^2.1.4",
+    "vue-resource": "^1.0.3"
+  }
+}

@@ -1,0 +1,1 @@
+{{ trans('lang.name',['name'=>$name]) }}
