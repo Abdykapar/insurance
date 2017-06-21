@@ -29,20 +29,29 @@ class MenuController extends Controller
     public function submenu($id){
         $submenu = Submenu::find($id);
         $subsub = Submenu::where('relation','=',$submenu->id)->get();
-        $f = $subsub[0]->file_table()->where('language','=','ru')->get();
+//        dd($submenu->toArray());
+        if($submenu){
+            $f = $submenu->file_table()->where('language','=','ru')->get();
 
-        if($f->toJson() == '[]'){
+            if($f->toJson() == '[]'){
+                $file='';
+            }
+            else {
+                $file = $f[0];
+            }
+
+
+            $f1 = $submenu->file_table()->where('language','=','kg')->get();
+            if($f1->toJson() == '[]'){
+                $file1='';
+            }
+            else {
+                $file1 = $f1[0];
+            }
+        }
+        else {
             $file='';
-        }
-        else {
-            $file = $f[0];
-        }
-        $f1 = $subsub[0]->file_table()->where('language','=','kg')->get();
-        if($f->toJson() == '[]'){
-            $file1='';
-        }
-        else {
-            $file1 = $f1[0];
+            $file1 = '';
         }
         $sub = Submenu::all();
 

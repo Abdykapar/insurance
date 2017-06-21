@@ -29,9 +29,19 @@
                         <input name="title" class="form-control" type="text" id="title" value="{{ $partner->name }}">
                     </div>
                     <div class="form-group">
+                        <label for="title">Тема(kg)</label>
+                        <input name="titleKg" class="form-control" type="text" id="title" value="{{ $partner->nameKg }}">
+                    </div>
+                    <div class="form-group">
                         <label for="input">Контент</label>
                         <textarea name="content" id="input" class="fom-control" rows="15">
                             {!! $partner->content !!}
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="input">Контент(kg)</label>
+                        <textarea name="contentKg" id="input" class="fom-control" rows="15">
+                            {!! $partner->contentKg !!}
                         </textarea>
                     </div>
                     <div class="form-group">

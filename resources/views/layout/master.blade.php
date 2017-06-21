@@ -172,7 +172,10 @@
             </li>
         </ul>
     </div>
-
+    <div class="footer-copyright">
+        <div class="container-fluid">
+        </div>
+    </div>
 </footer>
 <script type="text/javascript" src="{{ asset('/new/js/jquery-3.1.1.min.js') }}"></script>
 

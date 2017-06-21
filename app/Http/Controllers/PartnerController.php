@@ -43,7 +43,9 @@ class PartnerController extends Controller
     {
        Partner::create([
            'name' => $request['title'],
-           'content' => $request['content']
+           'content' => $request['content'],
+           'nameKg' => $request['titleKg'],
+           'contentKg' => $request['contentKg']
        ])->save();
         return redirect(route('admin.partners.index'));
     }
@@ -87,7 +89,9 @@ class PartnerController extends Controller
         $partner->update(
             [
                 'name' => $request['title'],
-                'content' => $request['content']
+                'content' => $request['content'],
+                'nameKg' => $request['titleKg'],
+                'contentKg' => $request['contentKg']
             ]
         );
         $partner->save();

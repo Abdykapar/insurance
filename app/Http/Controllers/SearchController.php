@@ -30,27 +30,30 @@ class SearchController extends Controller
         $users = News::
             where('name', 'LIKE', $search)
             ->orwhere('content', 'LIKE', $search)
-            ->orwhere('created_at','LIKE',$search)
+            ->orwhere('contentKg', 'LIKE', $search)
+            ->orwhere('nameKg','LIKE',$search)
         ->get();
         $about = About::
             where('name', 'LIKE', $search)
             ->orwhere('content', 'LIKE', $search)
-            ->orwhere('created_at','LIKE',$search)
+            ->orwhere('contentEn', 'LIKE', $search)
+            ->orwhere('nameEn','LIKE',$search)
         ->get();
         $agent = Agent::
             where('name', 'LIKE', $search)
             ->orwhere('content', 'LIKE', $search)
-            ->orwhere('created_at','LIKE',$search)
+            ->orwhere('contentKg', 'LIKE', $search)
+            ->orwhere('nameKg','LIKE',$search)
         ->get();
         $partner = Partner::
             where('name', 'LIKE', $search)
             ->orwhere('content', 'LIKE', $search)
-            ->orwhere('created_at','LIKE',$search)
         ->get();
         $submenu = Submenu::
             where('name', 'LIKE', $search)
             ->orwhere('content', 'LIKE', $search)
-            ->orwhere('created_at','LIKE',$search)
+            ->orwhere('contentKg', 'LIKE', $search)
+            ->orwhere('nameKg','LIKE',$search)
         ->get();
         $data = [
           'news' => $users,

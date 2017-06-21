@@ -8,5 +8,5 @@ class Partner extends Model
 {
     public $table = 'partner';
 
-    protected $fillable = ['name','content','created_at'];
+    protected $fillable = ['name','content','created_at','nameKg','contentKg'];
 }
