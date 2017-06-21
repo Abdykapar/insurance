@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="/new/img/news12.png" />
     <title>ОАО «Государственная Страховая Организация»</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
@@ -45,15 +45,23 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav navbar-nav pull-right">
 
-            <li class="nav-item ">
-                <a class="nav-link"><span class="hidden-sm-down">Кыргызча</span></a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link"><span class="hidden-sm-down">Русский</span></a>
-            </li>
-        </ul>
+
+
+        @if(App::isLocale('ru'))
+            <form method="post" action="{{ url('/kg') }}" class="navbar-form navbar-right">
+                <input type="hidden" name="locale" value="kg">
+                {{ csrf_field() }}
+                <button type="submit"  class="btn btn-primary btn-sm">Kg</button>
+            </form>
+        @else
+            <form method="post" action="{{ url('/ru') }}" class="navbar-form navbar-right">
+                {{ csrf_field() }}
+                <input type="hidden" name="locale" value="ru">
+                <button type="submit"  class="btn btn-primary btn-sm">Ru</button>
+            </form>
+        @endif
+
     </nav>
     <a href="{{ route('index') }}">
          <img class="img-fluid" src="/new/img/logo.jpg">
@@ -67,36 +75,34 @@
         <div class="container">
 
             <div class="collapse navbar-toggleable-xs" id="collapseEx">
-                <a class="navbar-brand" href="{{ route('index') }}">Главная</a>
+                <a class="navbar-brand" href="{{ route('index') }}">{{ trans('menu.main') }}</a>
                 <ul class="nav navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('about') }}">О компании</a>
+                        <a class="nav-link" href="{{ route('about') }}">{{ trans('menu.about') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('news') }}">Новости</a>
+                        <a class="nav-link" href="{{ route('news') }}">{{ trans('menu.news') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('partners') }}">Наши партнеры</a>
+                        <a class="nav-link" href="{{ route('partners') }}">{{ trans('menu.partners') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('agent') }}">Наши агенты</a>
+                        <a class="nav-link" href="{{ route('agent') }}">{{ trans('menu.agents') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('feedback') }}">Обратная Связь</a>
+                        <a class="nav-link" href="{{ route('feedback') }}">{{ trans('menu.feedback') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contact') }}">Контакты</a>
+                        <a class="nav-link" href="{{ route('contact') }}">{{ trans('menu.contact') }}</a>
                     </li>
                 </ul>
                 <form class="form-inline" method="post" action="{{ route('search') }}">
                     {{ Form::Token() }}
-                    <input class="form-control" type="text" placeholder="Искать" name="search" required>
-                    <button type="submit" class="btn btn-primary btn-sm">Искать</button>
+                    <input class="form-control" type="text" placeholder="{{ trans('menu.search') }}" name="search" required>
+                    <button type="submit" class="btn btn-primary btn-sm">{{ trans('menu.search') }}</button>
                 </form>
-
             </div>
-
         </div>
     </nav>
 </div>
@@ -113,27 +119,27 @@
             </div>
             <div class="col-md-8">
                 <div class="collapse navbar-toggleable-xs">
-                    <a class="navbar-brand" href="{{ route('index') }}">Главная</a>
+                    <a class="navbar-brand" href="{{ route('index') }}">{{ trans('menu.main') }}</a>
 
                     <ul class="nav navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('about') }}">О компании</a>
+                            <a class="nav-link" href="{{ route('about') }}">{{ trans('menu.about') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('news') }}">Новости</a>
+                            <a class="nav-link" href="{{ route('news') }}">{{ trans('menu.news') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('partners') }}">Наши партнеры</a>
+                            <a class="nav-link" href="{{ route('partners') }}">{{ trans('menu.partners') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('agent') }}">Наши агенты</a>
+                            <a class="nav-link" href="{{ route('agent') }}">{{ trans('menu.agents') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('feedback') }}">Обратная Связь</a>
+                            <a class="nav-link" href="{{ route('feedback') }}">{{ trans('menu.feedback') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact') }}">Контакты</a>
+                            <a class="nav-link" href="{{ route('contact') }}">{{ trans('menu.contact') }}</a>
                         </li>
 
                     </ul>
@@ -157,20 +163,14 @@
                     </a>
             </li>
             <li>
-                <button type="button" class="btn btn-fb btn-primary">
-                    <a href="https://www.facebook.com/groups/988335564573931/?fref=ts" target="_blank">
+                <button type="button" class="btn btn-fb btn-primary" style="height: 45px; width: 200px;">
+                    <a href="https://www.facebook.com/groups/988335564573931/?fref=ts" target="_blank" >
                         <i class="fa fa-facebook left"></i>
                         Facebook
                     </a>
                 </button>
             </li>
         </ul>
-    </div>
-    <div class="footer-copyright">
-        <div class="container-fluid">
-            Разработан <a href="http://www.maxcom.kg" target="_blank">Maxcom</a>
-
-        </div>
     </div>
 
 </footer>

@@ -8,19 +8,51 @@
             <div class="panel-heading">
                 Изменить меню
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="app">
                 {{ Form::model($submenu, ['route' => ['admin.menu.update',$submenu->id],'files' => true,'method' => 'put']) }}
                     {{ Form::token() }}
                     <div class="form-group">
                         {{ Form::label('title', 'Тема') }}
                         {{ Form::text('title', $submenu->name,['class'=>'form-control']) }}
                     </div>
+                <div class="form-group">
+                    {{ Form::label('title', 'Тема(kg)') }}
+                    {{ Form::text('titleKg', $submenu->nameKg,['class'=>'form-control']) }}
+                </div>
+                    <div class="form-group">
+                        {{ Form::label('radio', 'Изменить файл (word,pdf) ') }}
+                        <input v-model="radio" type="checkbox" name="radio" value="1" v-on:click="fileIsUp()">
+                    </div>
+                    @if($file!='')
+                        <p>{{ $file->original_name }}</p>
+                    @endif
+                    <div v-if="seen" class="form-group">
+                        {{ Form::label('file', 'Выберите файл') }}
+                        {{ Form::file('file', ['class'=>'form-control']) }}
+                    </div>
+                <div class="form-group">
+                    {{ Form::label('radio', 'Изменить файл(kg) (word,pdf) ') }}
+                    <input v-model="radioKg" type="checkbox" name="radioKg" value="1" v-on:click="fileIsUpKg()">
+                </div>
+                @if($file1!='')
+                    <p>{{ $file1->original_name }}</p>
+                @endif
+                <div v-if="seenKg" class="form-group">
+                    {{ Form::label('file', 'Выберите файл(kg)') }}
+                    {{ Form::file('file1', ['class'=>'form-control']) }}
+                </div>
                     <div class="form-group">
                         {{ Form::label('input', 'Контент') }}
-                        <textarea name="content" id="input" class="fom-control" rows="15">
+                        <textarea name="content" id="input" class="fom-control" rows="8">
                             {{ $submenu->content }}
                         </textarea>
                     </div>
+                <div class="form-group">
+                    {{ Form::label('input', 'Контент') }}
+                    <textarea name="contentKg" id="input" class="fom-control" rows="8">
+                            {{ $submenu->contentKg }}
+                        </textarea>
+                </div>
                     <div class="form-group">
                         @if (count($sub))
                             <label for="select">Связь</label>
@@ -80,5 +112,36 @@
         };
 
         tinymce.init(editor_config);
+    </script>
+    <script src="/vue/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                seen: false,
+                seenKg: false,
+                radio: 0,
+                radioKg: 0,
+            },
+            computed: {
+                fileIsUp: function () {
+                    if (this.radio == 1){
+                        this.seen = false
+                    }
+                    else {
+                        this.seen = true
+                    }
+                },
+                fileIsUpKg: function () {
+                    if (this.radioKg == 1){
+                        this.seenKg = false
+                    }
+                    else {
+                        this.seenKg = true
+                    }
+                }
+            }
+        })
     </script>
 @endsection

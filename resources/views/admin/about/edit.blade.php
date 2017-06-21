@@ -14,9 +14,19 @@
                         <input name="title" class="form-control" type="text" id="title" value="{{ $about->name }}">
                     </div>
                     <div class="form-group">
-                        <label for="input">Контент</label>
+                        <label for="title">Тема(kg)</label>
+                        <input name="titleEn" class="form-control" type="text" id="title" value="{{ $about->nameEn }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="input">Текст</label>
                         <textarea name="content" id="input" class="fom-control" rows="15">
                             {{ $about->content }}
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="input">Текст(kg)</label>
+                        <textarea name="contentEn" id="input" class="fom-control" rows="15">
+                            {{ $about->contentEn }}
                         </textarea>
                     </div>
                     <div class="form-group">

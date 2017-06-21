@@ -14,8 +14,17 @@
                         <input name="title" class="form-control" type="text" id="title" >
                     </div>
                     <div class="form-group">
+                        <label for="titleK">Тема(kg)</label>
+                        <input name="titleKg" class="form-control" type="text" id="titleK" >
+                    </div>
+                    <div class="form-group">
                         <label for="input">Контент</label>
                         <textarea name="content" id="input" class="fom-control" rows="15">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputK">Контент(kg)</label>
+                        <textarea name="contentKg" id="inputK" class="fom-control" rows="15">
                         </textarea>
                     </div>
                     <div class="form-group">

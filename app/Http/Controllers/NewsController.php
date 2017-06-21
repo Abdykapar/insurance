@@ -22,7 +22,7 @@ class NewsController extends Controller
         $a = 'news';
         $news = News::all();
         $sub = Submenu::all();
-        return view('Admin/news/index',compact('sub','news','a'));
+        return view('admin/news/index',compact('sub','news','a'));
     }
 
     /**
@@ -46,7 +46,9 @@ class NewsController extends Controller
     {
         News::create([
             'name' => $request['title'],
-            'content' => $request['content']
+            'content' => $request['content'],
+            'nameKg' => $request['titleKg'],
+            'contentKg' => $request['contentKg']
         ])->save();
         return redirect(route('admin.news.index'));
     }
@@ -90,7 +92,9 @@ class NewsController extends Controller
         $new = News::find($id);
         $new->update([
             'name' => $request['title'],
-            'content' => $request['content']
+            'content' => $request['content'],
+            'nameKg' => $request['titleKg'],
+            'contentKg' => $request['contentKg']
         ]);
         $new->save();
         return redirect(route('admin.news.show',$new->id));

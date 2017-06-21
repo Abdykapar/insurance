@@ -13,12 +13,22 @@
                         <label for="title">Имя агента</label>
                         <input name="title" class="form-control" type="text" id="title" value="{{ $agent->name }}">
                     </div>
+                <div class="form-group">
+                    <label for="titleKg">Имя агента(kg)</label>
+                    <input name="titleKg" class="form-control" type="text" id="titleKg" value="{{ $agent->nameKg }}">
+                </div>
                     <div class="form-group">
                         <label for="input">Контент</label>
                         <textarea name="content" id="input" class="fom-control" rows="15">
                             {{ $agent->content }}
                         </textarea>
                     </div>
+                <div class="form-group">
+                    <label for="inputKg">Контент(kg)</label>
+                    <textarea name="contentKg" id="inputKg" class="fom-control" rows="15">
+                            {{ $agent->contentKg }}
+                        </textarea>
+                </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Изменить</button>
                     </div>

@@ -31,35 +31,59 @@
                 </div>
             </div>
 
-           @include('layout.submenu')
+           @include('layout.subMenu')
         </div>
     </div>
     <div class="container" style="margin-top: 20px">
         <section class="section">
-            <h3 class="section-heading text-md-center">Новости</h3>
-        @foreach($news as $new)
-            <div class="col-md-6">
-                <div class="card card-cascade narrower">
-                    <div class="card-block text-xs-center">
-                        <h5>{{ $new->created_at }}</h5>
-                        <h4 class="card-title">
-                            <strong>
-                                <a href="{{ route('newId',$new->id) }}">{{ $new->name }}</a>
-                            </strong>
-                        </h4>
-                        <p class="card-text">
-                            {!! str_limit($new->content,200) !!}
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <h3 class="section-heading text-md-center">{{ trans('menu.news') }}</h3>
+            @if(App::isLocale('ru'))
+                @foreach($news as $new)
+                    @if($new->name != '')
+                        <div class="col-md-6">
+                            <div class="card card-cascade narrower">
+                                <div class="card-block text-xs-center">
+                                    <h5>{{ $new->created_at }}</h5>
+                                    <h4 class="card-title">
+                                        <strong>
+                                            <a href="{{ route('newId',$new->id) }}">{{ $new->name }}</a>
+                                        </strong>
+                                    </h4>
+                                    <p class="card-text">
+                                        {!! str_limit($new->content,200) !!}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
         @endforeach
+                @else
+                    @foreach($news as $new)
+                        @if($new->nameKg != '')
+                            <div class="col-md-6">
+                                <div class="card card-cascade narrower">
+                                    <div class="card-block text-xs-center">
+                                        <h5>{{ $new->created_at }}</h5>
+                                        <h4 class="card-title">
+                                            <strong>
+                                                <a href="{{ route('newId',$new->id) }}">{{ $new->nameKg }}</a>
+                                            </strong>
+                                        </h4>
+                                        <p class="card-text">
+                                            {!! str_limit($new->contentKg,200) !!}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
         </section>
         <hr>
     </div>
     <div class="container">
         <section class="section">
-            <h3 class="section-heading text-md-center">Наше местоположение</h3>
+            <h3 class="section-heading text-md-center">{{ trans('menu.address') }}</h3>
             <div id="map">
             </div>
         </section>

@@ -62,4 +62,16 @@ class SearchController extends Controller
         $sub = Submenu::all();
         return view('pages/search',compact('word','data','sub'));
     }
+    public function search(){
+        $data = [
+            'news' => '',
+            'about' => '',
+            'agent' => '',
+            'partner' => '',
+            'submenu' => ''
+        ];
+        $sub = Submenu::all();
+        $word = '';
+        return view('pages/search',compact('word','data','sub'));
+    }
 }

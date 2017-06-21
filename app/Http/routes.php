@@ -13,20 +13,18 @@
 
 use Illuminate\Support\Facades\Auth;
 
-Route::get('language/{locale}',function ($locale){
-    app()->setLocale($locale);
-    $name = Auth::user()->name;
-    return view('welcome',compact('name'));
-});
+
 Route::auth();
 //route
 Route::group(['middleware'=>['web']], function (){
     //search
+    Route::get('search',['as'=>'search','uses'=>'SearchController@search']);
     Route::post('search',['as'=>'search','uses'=>'SearchController@index']);
     //submenu
     Route::get('index/{id}',['as'=>'index.submenu','uses'=>'MenuController@submenu']);
     //menu
     Route::get('/','MenuController@home');
+    Route::post('/{locale}',['middleware' => 'language','uses' => 'MenuController@locale']);
     Route::get('index',['as'=>'index','uses'=>'MenuController@home']);
     Route::get('contact',['as'=>'contact','uses'=>'MenuController@contact']);
     Route::get('news',['as'=>'news','uses'=>'MenuController@news']);
@@ -35,7 +33,7 @@ Route::group(['middleware'=>['web']], function (){
     Route::get('partners',['as'=>'partners','uses'=>'MenuController@partners']);
     Route::get('feedback',['as'=>'feedback','uses'=>'MenuController@feedback']);
     Route::get('about',['as'=>'about','uses'=>'MenuController@about']);
-    Route::get('calculator',['as'=>'calc','uses'=>'SubMenuController@calc']);
+    Route::get('calculator',['as'=>'calc','uses'=>'SubmenuController@calc']);
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['web','auth','admin']], function () {
@@ -84,4 +82,4 @@ Route::group(['prefix' => 'admin','middleware' => ['web','auth','admin']], funct
 
 });
 Route::get('/home', 'HomeController@index');
-
+Route::get('example', 'AboutController@example');

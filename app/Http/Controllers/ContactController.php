@@ -46,7 +46,9 @@ class ContactController extends Controller
     {
         Contact::create([
             'name' => $request['title'],
-            'content' => $request['content']
+            'content' => $request['content'],
+            'nameKg' => $request['titleKg'],
+            'contentKg' => $request['contentKg']
         ])->save();
         return redirect(route('admin.contact.index'));
     }
@@ -59,9 +61,10 @@ class ContactController extends Controller
      */
     public function show($id)
     {
+        $a = 'contact';
         $sub = Submenu::all();
         $contact = Contact::find($id);
-        return view('admin/contact/index',compact('sub','contact'));
+        return view('admin/contact/index',compact('sub','contact','a'));
     }
 
     /**
@@ -89,7 +92,9 @@ class ContactController extends Controller
         $contact = Contact::find($id);
         $contact->update([
             'name' => $request['title'],
-            'content' => $request['content']
+            'content' => $request['content'],
+            'nameKg' => $request['titleKg'],
+            'contentKg' => $request['contentKg']
         ]);
         $contact->save();
         return redirect(route('admin.contact.show',$contact->id));

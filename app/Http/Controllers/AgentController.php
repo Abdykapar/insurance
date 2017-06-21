@@ -45,7 +45,9 @@ class AgentController extends Controller
     {
         Agent::create([
             'name' => $request['title'],
-            'content' => $request['content']
+            'content' => $request['content'],
+            'nameKg' => $request['titleKg'],
+            'contentKg' => $request['contentKg']
         ])->save();
         return redirect(route('admin.agent.index'));
     }
@@ -88,7 +90,9 @@ class AgentController extends Controller
         $agent = Agent::find($id);
         $agent->update([
             'name' => $request['title'],
-            'content' => $request['content']
+            'nameKg' => $request['titleKg'],
+            'content' => $request['content'],
+            'contentKg' => $request['contentKg'],
         ]);
         $agent->save();
         return redirect(route('admin.agent.show',$agent->id));

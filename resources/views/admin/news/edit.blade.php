@@ -14,10 +14,20 @@
                         <input name="title" class="form-control" type="text" id="title" value="{{ $new->name }}">
                     </div>
                     <div class="form-group">
+                        <label for="title">Тема(kg)</label>
+                        <input name="titleKg" class="form-control" type="text" id="title" value="{{ $new->nameKg }}">
+                    </div>
+                    <div class="form-group">
                         <label for="input">Контент</label>
                         <textarea name="content" id="input" class="fom-control" rows="15">
                             {{ $new->content }}
                         </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="input">Контент(kg)</label>
+                        <textarea name="contentKg" id="input" class="fom-control" rows="15">
+                                {{ $new->contentKg }}
+                            </textarea>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Изменить</button>

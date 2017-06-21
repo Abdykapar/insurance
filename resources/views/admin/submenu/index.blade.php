@@ -3,6 +3,11 @@
     {!! Breadcrumbs::renderIfExists($a) !!}
 @endsection
 @section('content')
+    <div class="well">
+        @if(Session::has('success'))
+            <p>{{ Session::get('success') }}</p>
+        @endif
+    </div>
     <div class="box box-primary">
         <div class="box-header ui-sortable-handle" style="cursor: move;">
             <i class="ion ion-clipboard"></i>

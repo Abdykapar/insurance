@@ -3,12 +3,12 @@
     {!! Breadcrumbs::renderIfExists('sub_create') !!}
 @endsection
 @section('content')
-    <br>
+    <br xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
         <div class="panel panel-default">
             <div class="panel-heading">
                 Добавить меню
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="app">
                 <form method="post" action="{{ route('admin.menu.store') }}" enctype="multipart/form-data">
                     {{ Form::token() }}
                     <div class="form-group">
@@ -16,8 +16,33 @@
                         <input name="title" class="form-control" type="text" id="title" >
                     </div>
                     <div class="form-group">
+                        <label for="titleK">Тема(Kg)</label>
+                        <input name="titleKg" class="form-control" type="text" id="titleK" >
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('radio', 'Добавить файл (word,pdf) ') }}
+                        <input v-model="radio" type="checkbox" name="radio" value="1" v-on:click="fileIsUp()">
+                    </div>
+                    <div v-if="seen" class="form-group">
+                        {{ Form::label('file', 'Выберите файл') }}
+                        {{ Form::file('file', ['class'=>'form-control']) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('radio', 'Добавить файл(kg) (word,pdf) ') }}
+                        <input v-model="radioKg" type="checkbox" name="radioKg" value="1" v-on:click="fileIsUpKg()">
+                    </div>
+                    <div v-if="seenKg" class="form-group">
+                        {{ Form::label('file', 'Выберите файл') }}
+                        {{ Form::file('file1', ['class'=>'form-control']) }}
+                    </div>
+                    <div class="form-group">
                         <label for="input">Контент</label>
                         <textarea name="content" id="input" class="fom-control" rows="15">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputK">Контент(Kg)</label>
+                        <textarea name="contentKg" id="inputK" class="fom-control" rows="15">
                         </textarea>
                     </div>
                     <div class="form-group">
@@ -63,5 +88,36 @@
         };
 
         tinymce.init(editor_config);
+    </script>
+    <script src="/vue/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                seen: false,
+                seenKg: false,
+                radio: 0,
+                radioKg:0
+            },
+            computed: {
+                fileIsUp: function () {
+                    if (this.radio == 1){
+                        this.seen = true
+                    }
+                    else {
+                        this.seen = false
+                    }
+                },
+                fileIsUpKg: function () {
+                    if (this.radioKg == 1){
+                        this.seenKg = true
+                    }
+                    else {
+                        this.seenKg = false
+                    }
+                }
+            }
+        })
     </script>
 @endsection

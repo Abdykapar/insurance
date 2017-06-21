@@ -8,5 +8,5 @@ class Agent extends Model
 {
     public $table = 'agent';
 
-    protected $fillable = ['name','content'];
+    protected $fillable = ['name','content','nameKg','contentKg'];
 }

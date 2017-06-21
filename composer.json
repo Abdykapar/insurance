@@ -11,7 +11,8 @@
         "froala/wysiwyg-editor-php-sdk" :"dev-master",
         "dyusha/laravel-html-editor": "^1.0",
         "unisharp/laravel-filemanager": "^1.6",
-        "davejamesmiller/laravel-breadcrumbs": "^3.0"
+        "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "google/apiclient": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

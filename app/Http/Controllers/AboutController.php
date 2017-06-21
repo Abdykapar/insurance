@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Translation\Tests\Catalogue\AbstractOperationTest;
 
 class AboutController extends Controller
@@ -49,7 +52,9 @@ class AboutController extends Controller
     {
         About::create([
             'name' => $request['title'],
-            'content' => $request['content']
+            'content' => $request['content'],
+            'nameEn' => $request['titleEn'],
+            'contentEn' => $request['contentEn']
         ])->save();
         return redirect(route('admin.about.index'));
     }
@@ -94,6 +99,8 @@ class AboutController extends Controller
         $about->update([
             'name' => $request['title'],
             'content'=>$request['content'],
+            'nameEn' => $request['titleEn'],
+            'contentEn' => $request['contentEn']
         ]);
         $about->save();
         return redirect(route('admin.about.index'));
@@ -108,5 +115,10 @@ class AboutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function example(){
+        $files = 'http://gso.kg/files/example.docx';
+        return redirect(url('https://docs.google.com/viewerng/viewer?url=gso.kg/files/example.docx'))->header('title','myfile');
     }
 }

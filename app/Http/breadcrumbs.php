@@ -1,34 +1,62 @@
 <?php
 //frontend
 Breadcrumbs::register('main', function($breadcrumbs) {
-    $breadcrumbs->push('Главный', route('index'));
+    $breadcrumbs->push(trans('menu.main'), route('index'));
 });
 Breadcrumbs::register('submenu', function($breadcrumbs, $id) {
     $breadcrumbs->parent('main');
     $category = App\Submenu::find($id);
-    if ($category->level == 2){
-        $sub = \App\Submenu::find($category->relation);
-        $breadcrumbs->push($sub->name, route('index.submenu', $sub->id));
-        $breadcrumbs->push($category->name, route('index.submenu', $category->id));
-    }
-    else if ($category->level == 3){
-        $sub = \App\Submenu::find($category->relation);
-        $sub1 = \App\Submenu::find($sub->relation);
-        $breadcrumbs->push($sub1->name, route('index.submenu', $sub1->id));
-        $breadcrumbs->push($sub->name, route('index.submenu', $sub->id));
-        $breadcrumbs->push($category->name, route('index.submenu', $category->id));
-    }
-    else if ($category->level == 4){
-        $sub = \App\Submenu::find($category->relation);
-        $sub1 = \App\Submenu::find($sub->relation);
-        $sub2 = \App\Submenu::find($sub1->relation);
-        $breadcrumbs->push($sub2->name, route('index.submenu', $sub2->id));
-        $breadcrumbs->push($sub1->name, route('index.submenu', $sub1->id));
-        $breadcrumbs->push($sub->name, route('index.submenu', $sub->id));
-        $breadcrumbs->push($category->name, route('index.submenu', $category->id));
+    if(App::isLocale('ru')){
+        if ($category->level == 2){
+            $sub = \App\Submenu::find($category->relation);
+            $breadcrumbs->push($sub->name, route('index.submenu', $sub->id));
+            $breadcrumbs->push($category->name, route('index.submenu', $category->id));
+        }
+        else if ($category->level == 3){
+            $sub = \App\Submenu::find($category->relation);
+            $sub1 = \App\Submenu::find($sub->relation);
+            $breadcrumbs->push($sub1->name, route('index.submenu', $sub1->id));
+            $breadcrumbs->push($sub->name, route('index.submenu', $sub->id));
+            $breadcrumbs->push($category->name, route('index.submenu', $category->id));
+        }
+        else if ($category->level == 4){
+            $sub = \App\Submenu::find($category->relation);
+            $sub1 = \App\Submenu::find($sub->relation);
+            $sub2 = \App\Submenu::find($sub1->relation);
+            $breadcrumbs->push($sub2->name, route('index.submenu', $sub2->id));
+            $breadcrumbs->push($sub1->name, route('index.submenu', $sub1->id));
+            $breadcrumbs->push($sub->name, route('index.submenu', $sub->id));
+            $breadcrumbs->push($category->name, route('index.submenu', $category->id));
+        }
+        else {
+            $breadcrumbs->push($category->name, route('index', $category->id));
+        }
     }
     else {
-        $breadcrumbs->push($category->name, route('index', $category->id));
+        if ($category->level == 2){
+            $sub = \App\Submenu::find($category->relation);
+            $breadcrumbs->push($sub->nameKg, route('index.submenu', $sub->id));
+            $breadcrumbs->push($category->nameKg, route('index.submenu', $category->id));
+        }
+        else if ($category->level == 3){
+            $sub = \App\Submenu::find($category->relation);
+            $sub1 = \App\Submenu::find($sub->relation);
+            $breadcrumbs->push($sub1->nameKg, route('index.submenu', $sub1->id));
+            $breadcrumbs->push($sub->nameKg, route('index.submenu', $sub->id));
+            $breadcrumbs->push($category->nameKg, route('index.submenu', $category->id));
+        }
+        else if ($category->level == 4){
+            $sub = \App\Submenu::find($category->relation);
+            $sub1 = \App\Submenu::find($sub->relation);
+            $sub2 = \App\Submenu::find($sub1->relation);
+            $breadcrumbs->push($sub2->nameKg, route('index.submenu', $sub2->id));
+            $breadcrumbs->push($sub1->nameKg, route('index.submenu', $sub1->id));
+            $breadcrumbs->push($sub->nameKg, route('index.submenu', $sub->id));
+            $breadcrumbs->push($category->nameKg, route('index.submenu', $category->id));
+        }
+        else {
+            $breadcrumbs->push($category->nameKg, route('index', $category->id));
+        }
     }
 });
 
@@ -68,29 +96,31 @@ Breadcrumbs::register('menuindex', function($breadcrumbs) {
 Breadcrumbs::register('menu', function($breadcrumbs, $id) {
     $breadcrumbs->parent('admin');
     $category = App\Submenu::find($id);
-    if ($category->level == 2){
-        $sub = \App\Submenu::find($category->relation);
-        $breadcrumbs->push($sub->name, route('admin.menu.show', $sub->id));
-        $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
+    if ($category) {
+
+        if ($category->level == 2) {
+            $sub = \App\Submenu::find($category->relation);
+            $breadcrumbs->push($sub->name, route('admin.menu.show', $sub->id));
+            $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
+        } else if ($category->level == 3) {
+            $sub = \App\Submenu::find($category->relation);
+            $sub1 = \App\Submenu::find($sub->relation);
+            $breadcrumbs->push($sub1->name, route('admin.menu.show', $sub1->id));
+            $breadcrumbs->push($sub->name, route('admin.menu.show', $sub->id));
+            $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
+        } else if ($category->level == 4) {
+            $sub = \App\Submenu::find($category->relation);
+            $sub1 = \App\Submenu::find($sub->relation);
+            $sub2 = \App\Submenu::find($sub1->relation);
+            $breadcrumbs->push($sub2->name, route('admin.menu.show', $sub2->id));
+            $breadcrumbs->push($sub1->name, route('admin.menu.show', $sub1->id));
+            $breadcrumbs->push($sub->name, route('admin.menu.show', $sub->id));
+            $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
+        } else {
+            $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
+        }
     }
-    else if ($category->level == 3){
-        $sub = \App\Submenu::find($category->relation);
-        $sub1 = \App\Submenu::find($sub->relation);
-        $breadcrumbs->push($sub1->name, route('admin.menu.show', $sub1->id));
-        $breadcrumbs->push($sub->name, route('admin.menu.show', $sub->id));
-        $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
-    }
-    else if ($category->level == 4){
-        $sub = \App\Submenu::find($category->relation);
-        $sub1 = \App\Submenu::find($sub->relation);
-        $sub2 = \App\Submenu::find($sub1->relation);
-        $breadcrumbs->push($sub2->name, route('admin.menu.show', $sub2->id));
-        $breadcrumbs->push($sub1->name, route('admin.menu.show', $sub1->id));
-        $breadcrumbs->push($sub->name, route('admin.menu.show', $sub->id));
-        $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
-    }
-    else {
-        $breadcrumbs->push($category->name, route('admin.menu.show', $category->id));
+    else{
     }
 });
 Breadcrumbs::register('sub_edit', function($breadcrumbs , $id) {
@@ -100,13 +130,14 @@ Breadcrumbs::register('sub_edit', function($breadcrumbs , $id) {
     $breadcrumbs->push('Изменит меню', route('admin.menu.edit',$category->id));
 });
 Breadcrumbs::register('sub_create', function($breadcrumbs) {
-    $breadcrumbs->parent('menu');
+    $breadcrumbs->parent('menu',1);
     $breadcrumbs->push('Создать меню', route('admin.menu.create'));
 });
-//Breadcrumbs::register('sub_create_create', function($breadcrumbs) {
-//    $breadcrumbs->parent('menu');
-//    $breadcrumbs->push('Создать меню', route('admin.menu.create.item'));
-//});
+Breadcrumbs::register('sub_create_create', function($breadcrumbs, $id) {
+    $category = App\Submenu::find($id);
+    $breadcrumbs->parent('menu',$id);
+    $breadcrumbs->push('Создать меню', route('admin.menu.create.item', $category->id));
+});
 
 
 

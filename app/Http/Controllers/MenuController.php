@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\About;
 use App\Agent;
 use App\Contact;
+use App\File;
 use App\Image;
 use App\Menu;
 use App\News;
@@ -13,6 +14,9 @@ use App\Submenu;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class MenuController extends Controller
 {
@@ -24,9 +28,25 @@ class MenuController extends Controller
     }
     public function submenu($id){
         $submenu = Submenu::find($id);
-        $sub = Submenu::all();
         $subsub = Submenu::where('relation','=',$submenu->id)->get();
-        return view('pages/submenu/index',compact('sub','submenu','subsub'));
+        $f = $subsub[0]->file_table()->where('language','=','ru')->get();
+
+        if($f->toJson() == '[]'){
+            $file='';
+        }
+        else {
+            $file = $f[0];
+        }
+        $f1 = $subsub[0]->file_table()->where('language','=','kg')->get();
+        if($f->toJson() == '[]'){
+            $file1='';
+        }
+        else {
+            $file1 = $f1[0];
+        }
+        $sub = Submenu::all();
+
+        return view('pages/submenu/index',compact('sub','submenu','subsub','file','file1'));
     }
     public function contact(){
         $element = Contact::all()->first();
@@ -63,5 +83,16 @@ class MenuController extends Controller
     public function agent(){
         $agents = Agent::all();
         return view('pages/agent',compact('agents'));
+    }
+    public function locale($locale){
+        if(Session::has('locale'))
+        {
+            Session::put('locale', Input::get('locale'));
+        }
+        else
+        {
+            Session::set('locale', Input::get('locale'));
+        }
+        return Redirect::back();
     }
 }

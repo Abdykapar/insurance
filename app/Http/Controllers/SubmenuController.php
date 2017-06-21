@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Danger;
+use App\File;
 use App\ppType;
 use App\Srok1;
 use App\Submenu;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class SubmenuController extends Controller
 {
@@ -60,15 +62,18 @@ class SubmenuController extends Controller
         else {
             $level = 1;
         }
-        $submenu = Submenu::create(
+        $submenu = new Submenu(
           [
               'name' => $request['title'],
               'content' => $request['content'],
               'level' => $level,
-              'relation' => $request['relation'] ? $request['relation']:0
+              'relation' => $request['relation'] ? $request['relation']:0,
+              'nameKg' => $request['titleKg'],
+              'contentKg' => $request['contentKg']
           ]
         );
         $submenu->save();
+        $submenu->add_file($request,$submenu->id);
         if ($submenu->relation > 0){
             return redirect(route('admin.menu.show',$submenu->relation));
         }
@@ -86,8 +91,22 @@ class SubmenuController extends Controller
         $a = 'menu';
         $sub = Submenu::all();
         $menu = Submenu::find($id);
+        $f = File::where([['submenu_id',$menu->id],['language','ru']])->get();
+        if($f->toJson() == '[]'){
+            $file='';
+        }
+        else {
+            $file = $f[0];
+        }
+        $f1 = $menu->file_table()->where('language','=','kg')->get();
+        if($f1->toJson()=='[]'){
+            $file1='';
+        }
+        else {
+            $file1 = $f1[0];
+        }
         $subsubmenu = Submenu::where('relation','=',$menu->id)->get();
-        return view('admin/submenu/show',compact('sub','menu','subsubmenu','a'));
+        return view('admin/submenu/show',compact('sub','menu','subsubmenu','a','file','file1'));
     }
 
     /**
@@ -100,7 +119,21 @@ class SubmenuController extends Controller
     {
         $submenu = Submenu::find($id);
         $sub = Submenu::all();
-        return view('admin.submenu.edit',compact('sub','submenu'));
+        $f = File::where([['submenu_id',$submenu->id],['language','ru']])->get();
+        if($f->toJson() == '[]'){
+            $file='';
+        }
+        else {
+            $file = $f[0];
+        }
+        $f1 = File::where([['submenu_id',$submenu->id],['language','kg']])->get();
+        if($f1->toJson() == '[]'){
+            $file1='';
+        }
+        else {
+            $file1 = $f1[0];
+        }
+        return view('admin.submenu.edit',compact('sub','submenu','file','file1'));
     }
 
     /**
@@ -119,14 +152,27 @@ class SubmenuController extends Controller
         else {
             $level = 1;
         }
+
         $submenu = Submenu::find($id);
+
         $submenu->update([
             'name' => $request['title'],
             'content' => $request['content'],
             'level' => $level,
-            'relation' => $request['relation'] ? $request['relation']:0
+            'relation' => $request['relation'] ? $request['relation']:0,
+            'nameKg' => $request['titleKg'],
+            'contentKg' => $request['contentKg']
         ]);
         $submenu->save();
+        $file = File::where([['submenu_id',$id],['language','ru']])->take(1)->get();
+        if ($file->toJson() != '[]'){
+            Storage::delete('/files/'.$file[0]->name);
+        }
+        $file1 = File::where([['submenu_id',$id],['language','kg']])->take(1)->get();
+        if ($file1->toJson() != '[]'){
+            Storage::delete('/files/'.$file1[0]->name);
+        }
+        $submenu->add_file($request, $submenu->id);
         return redirect(route('admin.menu.index'));
     }
 
