@@ -20,7 +20,7 @@
         <br>
         <br>
         <div>
-            {!! $submenu->content !!}
+            {{ $submenu->content }}
             @if($file!='')
                 <div class="row">
                     <ul>

@@ -9,6 +9,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,6 +50,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof ModelNotFoundException or $e instanceof NotFoundHttpException or $e instanceof MethodNotAllowedHttpException) {
+            // ajax 404 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+
+            // normal 404 view page feedback
+            return response()->view('404', [], 404);
+        }
         return parent::render($request, $e);
     }
 }

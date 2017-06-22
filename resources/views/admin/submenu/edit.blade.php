@@ -48,7 +48,7 @@
                         </textarea>
                     </div>
                 <div class="form-group">
-                    {{ Form::label('input', 'Контент') }}
+                    {{ Form::label('input', 'Контент(kg)') }}
                     <textarea name="contentKg" id="input" class="fom-control" rows="8">
                             {{ $submenu->contentKg }}
                         </textarea>
@@ -60,7 +60,7 @@
                                 <option value="0">Нет</option>
                                 @foreach($sub as $all)
                                     @if ($all->id == $submenu->relation)
-                                    <option class="active" value="{{ $all->id }}">{{ $all->name }}</option>
+                                        <option selected class="active" value="{{ $all->id }}">{{ $all->name }}</option>
                                     @else
                                         <option value="{{ $all->id }}">{{ $all->name }}</option>
                                     @endif

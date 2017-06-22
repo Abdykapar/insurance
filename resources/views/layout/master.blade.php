@@ -36,31 +36,25 @@
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fa fa-cloud"></i>+312 00 00 00
+                    <i class="fa fa-cloud"></i>+996-550-035165
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fa fa-envelope"></i>admin@gmail.com
+                    <i class="fa fa-envelope"></i>
                 </a>
             </li>
         </ul>
-
-
-
-        @if(App::isLocale('ru'))
             <form method="post" action="{{ url('/kg') }}" class="navbar-form navbar-right">
                 <input type="hidden" name="locale" value="kg">
                 {{ csrf_field() }}
                 <button type="submit"  class="btn btn-primary btn-sm">Kg</button>
             </form>
-        @else
             <form method="post" action="{{ url('/ru') }}" class="navbar-form navbar-right">
                 {{ csrf_field() }}
                 <input type="hidden" name="locale" value="ru">
                 <button type="submit"  class="btn btn-primary btn-sm">Ru</button>
             </form>
-        @endif
 
     </nav>
     <a href="{{ route('index') }}">

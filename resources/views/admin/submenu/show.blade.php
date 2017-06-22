@@ -73,8 +73,8 @@
                                 <a href="{{ route('admin.menu.show',$all->id) }}"><span class="text">{{ $all->name }}</span></a>
                                 <!-- General tools such as edit or delete-->
                                 <div class="tools">
-                                    <a href="{{ route('admin.menu.edit',$all->id) }}"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('admin.menu.delete',$all->id) }}"><i class="fa fa-trash-o"></i></a>
+                                    <a href="{{ route('admin.menu.edit',$all->id) }}"><i class="fa fa-edit">Изменить </i></a>
+                                    <a href="{{ route('admin.menu.delete',$all->id) }}"><i class="fa fa-trash-o">Удалить</i></a>
                                 </div>
                             </li>
                     @endforeach

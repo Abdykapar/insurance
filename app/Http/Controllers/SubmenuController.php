@@ -28,7 +28,7 @@ class SubmenuController extends Controller
     {
         $a = 'menuindex';
         $sub = Submenu::all();
-        $allSub = Submenu::paginate(10);
+        $allSub = Submenu::where('relation',0)->paginate(10);
         return view('admin/submenu/index',compact('sub','allSub','a'));
     }
 
@@ -166,7 +166,7 @@ class SubmenuController extends Controller
         $submenu->save();
         $file = File::where([['submenu_id',$id],['language','ru']])->take(1)->get();
         if ($file->toJson() != '[]'){
-            Storage::delete('/files/'.$file[0]->name);
+            Storage::delete('files/'.$file[0]->name);
         }
         $file1 = File::where([['submenu_id',$id],['language','kg']])->take(1)->get();
         if ($file1->toJson() != '[]'){
